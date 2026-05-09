@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "types": ["vite/client"],
-    "moduleResolution": "bundler",
-    "jsx": "react-jsx"
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["vite.config.ts"]
 }

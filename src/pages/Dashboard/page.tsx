@@ -1,58 +1,75 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useCart } from "../../context/CartContext";
 
-export default function Dashboard() {
-  const navigate = useNavigate();
+const Dashboard = () => {
+  const { cart, getTotal } = useCart();
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/");
-  };
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <div>
+    <div className="dashboard">
 
-      <div className="page">
-        <h1>Dashboard</h1>
-        <p>Manage products, orders, and pharmacy stock.</p>
+      <div className="box">
+        <h2>Pharmacy Dashboard</h2>
+        <p>Overview of your store activity</p>
 
-        <button onClick={logout}>
-          Logout
-        </button>
+        <div className="stats-grid">
+
+          <div className="stat-card">
+            <h3>Total Items</h3>
+            <p>{totalItems}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Cart Products</h3>
+            <p>{cart.length}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Total Revenue</h3>
+            <p>Rs {getTotal()}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Status</h3>
+            <p>Active</p>
+          </div>
+
+        </div>
       </div>
 
-      <div className="dashboard-cards">
+      {/* QUICK CART PREVIEW */}
+      <div className="box">
+        <h2>Recent Cart Items</h2>
 
-        <div className="card">
-          <h3>Total Products</h3>
-          <p>4</p>
-        </div>
+        {cart.length === 0 ? (
+          <p>No items in cart</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
+            </thead>
 
-        <div className="card">
-          <h3>Total Orders</h3>
-          <p>10</p>
-        </div>
-
-        <div className="card">
-          <h3>Revenue</h3>
-          <p>Rs. 5000</p>
-        </div>
-
-        <div className="card">
-          <h3>Low Stock</h3>
-          <p>2 Items</p>
-        </div>
+            <tbody>
+              {cart.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.qty}</td>
+                  <td>Rs {item.price * item.qty}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
       </div>
 
     </div>
   );
-}
+};
+
+export default Dashboard;

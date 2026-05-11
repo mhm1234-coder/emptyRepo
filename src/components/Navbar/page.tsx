@@ -1,42 +1,74 @@
-import { Link } from "react-router-dom";
-import type { Product } from "../../App";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
-type NavbarProps = {
-  search: string;
-  setSearch: (value: string) => void;
-  cart: Product[];
-};
+const Navbar = () => {
+  const navigate = useNavigate();
+  const { cart } = useCart();
 
-export default function Navbar({ search, setSearch, cart }: NavbarProps) {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
   return (
     <nav>
-
       {/* LOGO */}
-      <Link to="/">My Pharmacy Store</Link>
+      <NavLink to="/" className="logo">
+        My Pharmacy Store
+      </NavLink>
 
-      {/* NAV LINKS */}
+      {/* LINKS */}
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/services">Services</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/signup">Signup</Link></li>
-        <li><Link to="/login">Login</Link></li>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/services">Services</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/contact">Contact</NavLink>
+        </li>
+
+        {isLoggedIn && (
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+        )}
+
+        <li>
+          <NavLink to="/cart">
+            Cart ({totalItems})
+          </NavLink>
+        </li>
+
+        {!isLoggedIn ? (
+          <>
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/signup">Signup</NavLink>
+            </li>
+          </>
+        ) : (
+          <li>
+            <button onClick={logout}>
+              Logout
+            </button>
+          </li>
+        )}
       </ul>
-
-      {/* SEARCH */}
-      <input
-        type="text"
-        placeholder="Search medicines..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      {/* CART */}
-      <div className="cart-box">
-        Cart ({cart.length})
-      </div>
-
     </nav>
   );
-}
+};
+
+export default Navbar;

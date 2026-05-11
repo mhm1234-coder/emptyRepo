@@ -1,132 +1,78 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useCart } from "../../context/CartContext";
 
-type Product = {
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-};
-
-type HomeProps = {
-  search: string;
-  cart: Product[];
-  setCart: React.Dispatch<React.SetStateAction<Product[]>>;
-};
-
-export default function Home({ search, cart, setCart }: HomeProps) {
-  const [filter, setFilter] = useState("all");
-  const [toast, setToast] = useState("");
-
-  const products: Product[] = [
-    {
-      name: "Panadol",
-      price: 50,
-      category: "tablets",
-      image: "/images/panadol.png",
-    },
-    {
-      name: "Syrup",
-      price: 120,
-      category: "syrups",
-      image: "/images/syrup.png",
-    },
-    {
-      name: "Vitamins",
-      price: 200,
-      category: "vitamins",
-      image: "/images/vitamins.png",
-    },
-    {
-      name: "Baby Care",
-      price: 500,
-      category: "baby-care",
-      image: "/images/babycare.png",
-    },
-  ];
-
-  
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(saved);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  
-  const addToCart = (product: Product) => {
-    const updated = [...cart, product];
-    setCart(updated);
-
-    setToast(`${product.name} added to cart`);
-    setTimeout(() => setToast(""), 2000);
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    localStorage.removeItem("cart");
-
-    setToast("Cart cleared");
-    setTimeout(() => setToast(""), 2000);
-  };
-
-  const filteredProducts = products.filter((p) => {
-    const keyword = search.toLowerCase();
-
-    return (
-      (filter === "all" || p.category === filter) &&
-      (p.name.toLowerCase().includes(keyword) ||
-        p.category.toLowerCase().includes(keyword))
-    );
-  });
+const Home = () => {
+  const { addToCart } = useCart();
 
   return (
     <div>
 
-      {/* TOAST */}
-      {toast && <div className="toast">{toast}</div>}
+      <div className="hero">
+        <h1>Welcome to My Pharmacy Store</h1>
+        <p>
+          Your trusted online pharmacy for medicines, health products and care.
+        </p>
+      </div>
 
-      {/* CATEGORIES */}
-      <div className="page">
-
+      <section>
         <h2>Categories</h2>
 
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("tablets")}>Tablets</button>
-        <button onClick={() => setFilter("syrups")}>Syrups</button>
-        <button onClick={() => setFilter("vitamins")}>Vitamins</button>
-        <button onClick={() => setFilter("baby-care")}>Baby Care</button>
+        <div className="product-card">
+          <h3>Tablets</h3>
+          <img src="images/panadol.png" alt="Panadol" />
+          <p>All medicines available</p>
+          <button
+            onClick={() =>
+              addToCart({ name: "Panadol", price: 200 })
+            }
+          >
+            Add To Cart
+          </button>
+        </div>
 
-      </div>
-<h2>Our Products</h2>
-      {/* PRODUCTS */}
-      <div className="card-container">
+        <div className="product-card">
+          <h3>Syrups</h3>
+          <img src="images/syrup.png" alt="Syrups" />
+          <p>Child & adult care syrups</p>
+          <button
+            onClick={() =>
+              addToCart({ name: "Syrup", price: 100 })
+            }
+          >
+            Add To Cart
+          </button>
+        </div>
 
-        {filteredProducts.map((product, i) => (
-          <div key={i} className="card">
+        <div className="product-card">
+          <h3>Vitamins</h3>
+          <img src="images/vitamins.png" alt="Vitamins" />
+          <p>Health supplements</p>
+          <button
+            onClick={() =>
+              addToCart({ name: "Vitamins", price: 100 })
+            }
+          >
+            Add To Cart
+          </button>
+        </div>
 
-            <img src={product.image} alt={product.name} />
+        <div className="product-card">
+          <h3>Baby Care</h3>
+          <img src="images/babycare.png" alt="Baby Care" />
+          <p>Safe baby products</p>
+          <button
+            onClick={() =>
+              addToCart({ name: "BabyCare", price: 150 })
+            }
+          >
+            Add To Cart
+          </button>
+        </div>
 
-            <h3>{product.name}</h3>
-            <p>Rs {product.price}</p>
-
-            <button onClick={() => addToCart(product)}>
-              Add to Cart
-            </button>
-
-          </div>
-        ))}
-
-      </div>
-
-      {/* CLEAR CART */}
-      <div>
-        <button onClick={clearCart}>
-          Clear Cart
-        </button>
-      </div>
+      </section>
 
     </div>
   );
-}
+};
+
+export default Home;

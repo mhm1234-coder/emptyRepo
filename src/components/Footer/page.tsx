@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <footer>
-      <p>Contact: pharmacy@gmail.com</p>
-      <p>Phone: 0300-1234567</p>
+      <p>© 2026 My Pharmacy Store. All rights reserved.</p>
+      <p>Contact: 0123456789 | Email: pharmacy@gmail.com</p>
     </footer>
   );
 }

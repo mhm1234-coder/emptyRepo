@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+export default function Login() {
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
     if (!email || !password) {
@@ -15,45 +16,37 @@ const LoginPage = () => {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-    const user = users.find(
-      (u: any) => u.email === email && u.password === password
-    );
-
-    if (!user) {
-      alert("Invalid email or password");
+    if (!email.includes("@")) {
+      alert("Invalid email");
       return;
     }
 
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem("user", email);
 
-    alert("Login successful");
+    alert("Login Successful");
+
     navigate("/dashboard");
-  };
+  }
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="page">
 
-        <h2>Welcome Back</h2>
-        <p>Login to access your pharmacy account</p>
+      <h2>Login</h2>
 
-        <form onSubmit={handleLogin} className="auth-form">
+      <div className="form-container">
 
-          <label>Email</label>
+        <form onSubmit={handleLogin}>
+
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label>Password</label>
           <input
             type="password"
-            placeholder="Enter your password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -62,13 +55,8 @@ const LoginPage = () => {
 
         </form>
 
-        <p className="auth-footer">
-          Don’t have an account? <a href="/signup">Sign up</a>
-        </p>
-
       </div>
+
     </div>
   );
-};
-
-export default LoginPage;
+}

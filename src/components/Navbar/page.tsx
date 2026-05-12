@@ -1,74 +1,57 @@
-import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 
-const Navbar = () => {
+export default function Navbar() {
+
+  const location = useLocation();
   const navigate = useNavigate();
   const { cart } = useCart();
 
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const [search, setSearch] = useState("");
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    navigate("/?q=" + search);
+  }
 
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
-  const logout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("currentUser");
-    navigate("/login");
-  };
-
   return (
-    <nav>
-      {/* LOGO */}
-      <NavLink to="/" className="logo">
-        My Pharmacy Store
-      </NavLink>
+    <nav className="nav">
 
-      {/* LINKS */}
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
+      <Link to="/" className="logo">Pharmacy Store</Link>
+
+      <form onSubmit={handleSearch} className="search-box">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search medicines..."
+        />
+      </form>
+
+      <ul className="nav-links">
+
+        <li className={location.pathname === "/" ? "active" : ""}>
+          <Link to="/">Home</Link>
         </li>
 
-        <li>
-          <NavLink to="/services">Services</NavLink>
+        <li className={location.pathname === "/dashboard" ? "active" : ""}>
+          <Link to="/dashboard">Dashboard</Link>
         </li>
 
-        <li>
-          <NavLink to="/contact">Contact</NavLink>
+        <li className={location.pathname === "/services" ? "active" : ""}>
+          <Link to="/services">Services</Link>
         </li>
 
-        {isLoggedIn && (
-          <li>
-            <NavLink to="/dashboard">Dashboard</NavLink>
-          </li>
-        )}
-
-        <li>
-          <NavLink to="/cart">
-            Cart ({totalItems})
-          </NavLink>
+        <li className={location.pathname === "/cart" ? "active" : ""}>
+          <Link to="/cart">
+            Cart <span className="badge">{totalItems}</span>
+          </Link>
         </li>
 
-        {!isLoggedIn ? (
-          <>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-
-            <li>
-              <NavLink to="/signup">Signup</NavLink>
-            </li>
-          </>
-        ) : (
-          <li>
-            <button onClick={logout}>
-              Logout
-            </button>
-          </li>
-        )}
       </ul>
+
     </nav>
   );
-};
-
-export default Navbar;
+}

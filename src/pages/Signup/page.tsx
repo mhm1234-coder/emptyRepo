@@ -1,72 +1,58 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignupPage = () => {
+export default function Signup() {
+
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = (e: React.FormEvent) => {
+  function handleSignup(e: React.FormEvent) {
     e.preventDefault();
 
     if (!name || !email || !password) {
-      alert("All fields are required");
+      alert("All fields required");
       return;
     }
 
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters");
+    if (password.length < 4) {
+      alert("Password too weak");
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    alert("Account created successfully");
 
-    const exists = users.find((u: any) => u.email === email);
-
-    if (exists) {
-      alert("User already exists");
-      return;
-    }
-
-    users.push({ name, email, password });
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Signup successful! Please login.");
     navigate("/login");
-  };
+  }
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="page">
 
-        <h2>Create Account</h2>
-        <p>Join My Pharmacy Store today</p>
+      <h2>Signup</h2>
 
-        <form onSubmit={handleSignup} className="auth-form">
+      <div className="form-container">
 
-          <label>Name</label>
+        <form onSubmit={handleSignup}>
+
           <input
             type="text"
-            placeholder="Enter your name"
+            placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
-          <label>Email</label>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label>Password</label>
           <input
             type="password"
-            placeholder="Enter password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -75,13 +61,8 @@ const SignupPage = () => {
 
         </form>
 
-        <p className="auth-footer">
-          Already have an account? <a href="/login">Login</a>
-        </p>
-
       </div>
+
     </div>
   );
-};
-
-export default SignupPage;
+}

@@ -1,40 +1,34 @@
-import React from "react";
-
-const Services = () => {
-  const services = [
-    {
-      title: "Fast Delivery",
-      desc: "We deliver medicines within 24 hours at your doorstep.",
-    },
-    {
-      title: "24/7 Support",
-      desc: "Our pharmacy experts are available anytime for help.",
-    },
-    {
-      title: "Quality Assurance",
-      desc: "All medicines are 100% verified and authentic.",
-    },
-    {
-      title: "Online Prescription",
-      desc: "Upload your prescription and get medicines easily.",
-    },
-  ];
+export default function Services() {
 
   return (
-    <div className="services-clean">
+    <div className="page">
 
-      <h1>Our Services</h1>
-      <p>We provide trusted healthcare services for your well-being</p>
+      <h2>Our Services</h2>
 
-      {services.map((service, index) => (
-        <div className="card" key={index}>
-          <h3>{service.title}</h3>
-          <p>{service.desc}</p>
+      <div className="card-container">
+
+        <div className="card">
+          <h3>24/7 Pharmacy</h3>
+          <p>Order medicines anytime, anywhere</p>
+          <a href="/home" className="link-button">Shop Now</a>
         </div>
-      ))}
+
+        <div className="card">
+          <h3>Home Delivery</h3>
+          <p>Get your medicines delivered to your doorstep</p>
+          <a href="/cart" className="link-button">Shop Now</a>
+        </div>
+
+        <div className="card">
+          <h3>Online Consultation</h3>
+          <p> Please consult us for any health-related queries</p>
+          <a href="/contact" className="link-button">Contact Us</a>
+
+
+        </div>
+
+      </div>
 
     </div>
   );
-};
-
-export default Services;
+}

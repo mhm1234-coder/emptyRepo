@@ -1,78 +1,57 @@
-import React from "react";
 import { useCart } from "../../context/CartContext";
+import { useLocation } from "react-router-dom";
 
-const Home = () => {
+export default function Home() {
+
   const { addToCart } = useCart();
+  const location = useLocation();
+
+  // get query from URL
+  const query = new URLSearchParams(location.search).get("q") || "";
+
+  const products = [
+    { name: "Panadol", desc: "Relieves pain", price: 15, img: "/images/panadol.png" },
+    { name: "Vitamin C", desc: "Boost immunity", price: 20, img: "/images/vitamins.png" },
+    { name: "Cough Syrup", desc: "Soothes throat", price: 25, img: "/images/syrup.png" },
+    { name: "Baby Care", desc: "Baby wellness", price: 22, img: "/images/babycare.png" },
+  ];
+
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
-    <div>
+    <div className="page">
 
-      <div className="hero">
-        <h1>Welcome to My Pharmacy Store</h1>
-        <p>
-          Your trusted online pharmacy for medicines, health products and care.
-        </p>
-      </div>
-
-      <section>
-        <h2>Categories</h2>
-
-        <div className="product-card">
-          <h3>Tablets</h3>
-          <img src="images/panadol.png" alt="Panadol" />
-          <p>All medicines available</p>
-          <button
-            onClick={() =>
-              addToCart({ name: "Panadol", price: 200 })
-            }
-          >
-            Add To Cart
-          </button>
+      <section className="hero">
+        <div>
+          <h1>Welcome to Pharmacy Store</h1>
+          <p>Trusted Online Pharmacy</p>
         </div>
 
-        <div className="product-card">
-          <h3>Syrups</h3>
-          <img src="images/syrup.png" alt="Syrups" />
-          <p>Child & adult care syrups</p>
-          <button
-            onClick={() =>
-              addToCart({ name: "Syrup", price: 100 })
-            }
-          >
-            Add To Cart
-          </button>
-        </div>
-
-        <div className="product-card">
-          <h3>Vitamins</h3>
-          <img src="images/vitamins.png" alt="Vitamins" />
-          <p>Health supplements</p>
-          <button
-            onClick={() =>
-              addToCart({ name: "Vitamins", price: 100 })
-            }
-          >
-            Add To Cart
-          </button>
-        </div>
-
-        <div className="product-card">
-          <h3>Baby Care</h3>
-          <img src="images/babycare.png" alt="Baby Care" />
-          <p>Safe baby products</p>
-          <button
-            onClick={() =>
-              addToCart({ name: "BabyCare", price: 150 })
-            }
-          >
-            Add To Cart
-          </button>
-        </div>
-
+        <img src="/images/pharmacytrusts.png" width="200" />
       </section>
+
+      <h2>Featured Products</h2>
+
+      <div className="card-container">
+
+        {filtered.map((p) => (
+          <div className="card" key={p.name}>
+
+            <h3>{p.name}</h3>
+            <p>{p.desc}</p>
+            <img src={p.img} />
+
+            <button onClick={() => addToCart(p.name, p.price)}>
+              Add To Cart
+            </button>
+
+          </div>
+        ))}
+
+      </div>
 
     </div>
   );
-};
-
-export default Home;
+}

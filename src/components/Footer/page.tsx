@@ -1,8 +1,37 @@
 export default function Footer() {
+
   return (
-    <footer>
-      <p>© 2026 My Pharmacy Store. All rights reserved.</p>
-      <p>Contact: 0123456789 | Email: pharmacy@gmail.com</p>
+    <footer className="footer">
+
+      <div className="footer-container">
+
+        <div>
+          <h3>PharmaCare</h3>
+          <p>Your trusted online pharmacy platform</p>
+        </div>
+
+        <div>
+          <h3>Quick Links</h3>
+
+          <p><a href="/">Home</a></p>
+          <p><a href="/products">Products</a></p>
+          <p><a href="/services">Services</a></p>
+          <p><a href="/contact">Contact</a></p>
+
+        </div>
+
+        <div>
+          <h3>Support</h3>
+          <p>24/7 Customer Care</p>
+          <p>support@pharmacare.com</p>
+        </div>
+
+      </div>
+
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} PharmaCare. All rights reserved.</p>
+      </div>
+
     </footer>
   );
 }

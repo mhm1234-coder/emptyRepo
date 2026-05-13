@@ -12,7 +12,7 @@ export default function Cart() {
       <h2>Your Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="empty">Cart is empty 🛒</p>
+        <p className="empty">Cart is empty </p>
       ) : (
         <>
           {cart.map((item, i) => (

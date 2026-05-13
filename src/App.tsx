@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/page";
+import Footer from "./components/Footer/page";
+
 import Home from "./pages/Home/page";
 import Cart from "./pages/Cart/page";
 import Dashboard from "./pages/Dashboard/page";
@@ -31,7 +33,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
 
         </Routes>
-
+        <Footer />
       </BrowserRouter>
 
     </CartProvider>

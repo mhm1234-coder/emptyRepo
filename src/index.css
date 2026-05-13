@@ -1,32 +1,18 @@
-/* =========================================================
-   DESIGN SYSTEM (PHARMACARE - WALGREENS STYLE PRO UI)
-========================================================= */
+
 :root {
 
-  /* BRAND */
   --brand-primary-color: #d61f26;
   --brand-secondary-color: #b71c1c;
   --brand-accent-color: #28a745;
-
-  /* BACKGROUND */
   --bg-main: #f6f7fb;
   --bg-card: #ffffff;
-
-  /* TEXT */
   --text-primary-color: #1f1f1f;
   --text-secondary-color: #555555;
   --text-muted-color: #888888;
-
-  /* BORDER */
   --border-primary-color: #e5e5e5;
-
-  /* UI */
   --radius-sm: 6px;
   --radius-md: 12px;
-
   --transition: 0.25s ease;
-
-  /* SHADOW */
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
   --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
 }
@@ -142,20 +128,242 @@ nav > a {
 /* =========================================================
    HERO SECTION
 ========================================================= */
+
 .hero {
+  min-height: 75vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 30px;
-  background: white;
+  gap: 40px;
+
+  padding: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(213, 29, 32, 0.95),
+      rgba(183,28,28,0.92)
+    ),
+    url("/images/pharmacy-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+
   border-radius: var(--radius-md);
+
+  color: white;
+
+  box-shadow: var(--shadow-md);
+
+  overflow: hidden;
+
+  margin-bottom: 40px;
+}
+.hero-banner{
+  background:
+  linear-gradient(
+    135deg,
+   rgba(157,109,110,0.95)
+  )
+}
+
+/* LEFT CONTENT */
+
+.hero-content {
+  flex: 1;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 56px;
+  margin-bottom: 18px;
+  line-height: 1.1;
+  color: white;
+}
+
+.hero-content p {
+  font-size: 20px;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 25px;
+  max-width: 500px;
+}
+
+/* HERO BUTTON */
+
+.hero-content button {
+  background: white;
+  color: var(--brand-primary-color);
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.hero-content button:hover {
+  background: #f4f4f4;
+  transform: translateY(-3px);
+}
+
+/* RIGHT IMAGE */
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-image img {
-  max-width: 250px;
+  width: 100%;
+  max-width: 420px;
+
+  object-fit: contain;
+
+  animation: float 3s ease-in-out infinite;
 }
 
+/* FLOAT ANIMATION */
+
+@keyframes float {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 35px 20px;
+    min-height: auto;
+  }
+
+  .hero-content h1 {
+    font-size: 38px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    margin: auto auto 20px;
+  }
+
+  .hero-image img {
+    max-width: 280px;
+
+}
+}
+/* =========================================================
+    DASHBOARD BANNER
+========================================================= */
+
+.dashboard-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 40px;
+  border-radius: var(--radius-md);
+
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary-color),
+    var(--brand-secondary-color)
+  );
+
+  color: white;
+
+  box-shadow: var(--shadow-md);
+
+  margin-bottom: 30px;
+}
+
+.dashboard-text h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.dashboard-text p {
+  color: rgba(255,255,255,0.9);
+}
+
+.dashboard-banner img {
+  width: 180px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* =========================================================
+   SERVICE BANNER
+========================================================= */
+
+.banner {
+
+  margin-top: 20px;
+
+  padding: 60px 30px;
+
+  border-radius: var(--radius-md);
+
+  background:
+    linear-gradient(
+      rgba(214,31,38,0.85),
+      rgba(183,28,28,0.85)
+    ),
+    url("/images/service-banner.png");
+
+  background-size: cover;
+  background-position: center;
+
+  text-align: center;
+
+  color: white;
+
+  box-shadow: var(--shadow-md);
+}
+
+.banner h1,
+.banner h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.banner p {
+  color: rgba(255,255,255,0.92);
+  font-size: 18px;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.7;
+  animation : fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* =========================================================
    CARD SYSTEM (E-COMMERCE STYLE)
 ========================================================= */

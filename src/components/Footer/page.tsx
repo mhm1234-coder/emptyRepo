@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="footer-container">
 
         <div>
-          <h3>PharmaCare</h3>
+          <h3>Pharmacy Store</h3>
           <p>Your trusted online pharmacy platform</p>
         </div>
 
@@ -23,13 +23,13 @@ export default function Footer() {
         <div>
           <h3>Support</h3>
           <p>24/7 Customer Care</p>
-          <p>support@pharmacare.com</p>
+          <p>support@pharmacystore.com</p>
         </div>
 
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} PharmaCare. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Pharmacy Store. All rights reserved.</p>
       </div>
 
     </footer>

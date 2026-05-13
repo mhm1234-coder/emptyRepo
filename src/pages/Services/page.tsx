@@ -4,7 +4,10 @@ export default function Services() {
     <div className="page">
 
       <h2>Our Services</h2>
-
+<section className="banner">
+          <p>We offer a range of services to meet your healthcare needs</p>
+        </section>
+        
       <div className="card-container">
 
         <div className="card">

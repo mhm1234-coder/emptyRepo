@@ -49,6 +49,13 @@ export default function Navbar() {
             Cart <span className="badge">{totalItems}</span>
           </Link>
         </li>
+        <li className={location.pathname === "/contact" ? "active" : ""}>
+          <Link to="/contact">Contact</Link>
+        </li>
+        <li className={location.pathname === "/login" ? "active" : ""}>
+          <Link to="/login">Login</Link>
+          
+        </li>
 
       </ul>
 

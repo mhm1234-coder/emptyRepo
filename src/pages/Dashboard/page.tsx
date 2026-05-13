@@ -4,8 +4,16 @@ export default function Dashboard() {
 
       {/* HEADER */}
       <div className="page-header">
-        <h2> My Dashboard</h2>
-        <p>Welcome back! Manage your orders and prescriptions</p>
+        <h2> Dashboard</h2>
+        <section className="dashboard-banner">
+          <div className="dashboard-banner-content">
+            <p>Welcome back!  We Manage your orders and prescriptions</p>
+            <p>Track your orders, manage prescriptions, and access your account details.</p>
+          </div>
+          <div className="dashboard-banner-image">
+            <img src="/images/dashboardimage.png" width="150" />
+          </div>
+        </section>
       </div>
 
       {/* STATS */}
@@ -76,18 +84,20 @@ export default function Dashboard() {
           <h3> Shop Medicines</h3>
           <p>Browse pharmacy products</p>
           <a href="/products" className="link-button">Shop Now</a>
+          <img src="/images/shop.png" width="100" />
         </div>
-
         <div className="card">
           <h3>Track Orders</h3>
           <p>Check your delivery status</p>
           <a href="/cart" className="link-button">View Cart</a>
+          <img src="/images/trackorder.png" width="100" />
         </div>
 
         <div className="card">
-          <h3> Support</h3>
+          <h3> 24/7 Support Services</h3>
           <p>Contact pharmacy team</p>
           <a href="/contact" className="link-button">Contact</a>
+          <img src="/images/support.png" width="100" />
         </div>
 
       </div>

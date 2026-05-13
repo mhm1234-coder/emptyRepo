@@ -24,14 +24,22 @@ export default function Home() {
     <div className="page">
 
       <section className="hero">
-        <div>
+        <div className="hero-content">
           <h1>Welcome to Pharmacy Store</h1>
           <p>Trusted Online Pharmacy</p>
         </div>
 
-        <img src="/images/pharmacytrusts.png" width="200" />
+        <div className="hero-image">
+          <img src="/images/pharmacytrusts.png" width="200" />
+        </div>
       </section>
-
+<section className="home-banner">
+        <p>Get  50% off on your first order! Use code: FIRST50</p>
+        <p>Free delivery on orders above Rs 500</p>
+        <p>Consult our pharmacists online for any health-related queries</p>
+        <p>We care for your health and wellness</p>
+        <p>Shop with confidence at Pharmacy Store - Your trusted online pharmacy partner</p>
+      </section>
       <h2>Featured Products</h2>
 
       <div className="card-container">

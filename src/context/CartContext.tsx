@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type CartItem = {
   name: string;
@@ -12,27 +12,27 @@ type CartType = {
   clearCart: () => void;
 };
 
-const CartContext = createContext<CartType | null>(null);
+const CartContext = createContext<CartType | undefined>(undefined);
 
-export function CartProvider({ children }: any) {
+type CartProviderProps = {
+  children: ReactNode;
+};
 
+export function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   function addToCart(name: string, price: number) {
-
-    setCart(prev => {
-
-      const existing = prev.find(i => i.name === name);
+    setCart((prev) => {
+      const existing = prev.find((i) => i.name === name);
 
       if (existing) {
-        return prev.map(i =>
+        return prev.map((i) =>
           i.name === name ? { ...i, qty: i.qty + 1 } : i
         );
       }
 
       return [...prev, { name, price, qty: 1 }];
     });
-
   }
 
   function clearCart() {
@@ -47,5 +47,11 @@ export function CartProvider({ children }: any) {
 }
 
 export function useCart() {
-  return useContext(CartContext)!;
+  const context = useContext(CartContext);
+
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+
+  return context;
 }

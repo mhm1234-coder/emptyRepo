@@ -14,28 +14,34 @@ import Signup from "./pages/Signup/page";
 import { CartProvider } from "./context/CartContext";
 
 export default function App() {
-
   return (
     <CartProvider>
-
       <BrowserRouter>
 
-        <Navbar />
+        <div className="min-h-screen flex flex-col">
 
-        <Routes>
+          {/* NAVBAR */}
+          <Navbar />
 
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          {/* PAGE CONTENT */}
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </main>
 
-        </Routes>
-        <Footer />
+          {/* FOOTER */}
+          <Footer />
+
+        </div>
+
       </BrowserRouter>
-
     </CartProvider>
   );
 }
